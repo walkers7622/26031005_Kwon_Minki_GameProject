@@ -14,8 +14,8 @@ namespace PlaneSurvivor
         // ---- 위치 / 크기 (기획서 8번: 플레이어 행동) ----
         public float X { get; private set; }
         public float Y { get; private set; }
-        public float Width { get; } = 64f;
-        public float Height { get; } = 64f;
+        public float Width { get; } = 45f;
+        public float Height { get; } = 48f;
         public float Speed { get; set; } = 250f; // 초당 이동 픽셀
 
         // ---- HP / 무적 (기획서 4번: HP 시스템) ----
