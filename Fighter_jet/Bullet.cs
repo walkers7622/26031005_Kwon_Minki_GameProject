@@ -17,7 +17,7 @@ namespace PlaneSurvivor
 
         private readonly G2Texture _texture;
 
-        public Bullet(G2Texture sharedTexture)
+        internal Bullet(G2Texture sharedTexture)
         {
             _texture = sharedTexture;
         }

@@ -3,8 +3,8 @@
 **작성자:** 권민기  
 **학번:** 26031005
 **작성일:** 2026-08-31  
-**업데이트:** 2026-09-02 
-**과제명:** 2주차 — 게임 기획서 제출 및 구현 진행 
+**업데이트:** 2026-09-09 
+**과제명:** 3주차 — 기획 확정, 클래스 구성 및 게임 리소스 100% 준비
 
 ---
 
@@ -88,7 +88,55 @@
 * `ScoreUI`: 점수/생존시간/충돌 횟수 표시
 * `TitleScreen` / `ResultScreen`: 시작 화면과 결과 화면 UI
 
-## 13. 필요한 이미지 리소스 목록
+
+
+## 13. 프로그램 클래스 구성
+
+### 클래스 목록 및 관계
+
+
+`GameMain`이 게임 전체 상태(Start/Playing/GameOver)와 흐름을 관리하며, `Player`, `Bullet`, `Monster` 객체를 생성·갱신·렌더링·해제한다.
+
+### 클래스별 역할
+
+**GameMain**
+- 게임 전체 흐름(스타트 화면 → 플레이 → 게임오버) 관리
+- 입력 처리, 충돌 판정, 점수/타이머 관리
+- 주요 멤버 변수: `_currentState`, `_score`, `_playTimer`, `_bullets`, `_monsters`
+- 주요 멤버 함수: `Initialize()`, `Update()`, `Render()`, `StartGame()`, `HandleCollisions()`
+
+**Player**
+- 전투기(플레이어) 이동, 자동 발사, HP/무적 관리
+- 주요 멤버 변수: `X`, `Y`, `CurrentHP`, `MaxHP`, `IsInvincible`
+- 주요 멤버 함수: `Initialize()`, `Update()`, `Render()`, `OnHitByMonster()`, `Reset()`
+- 이벤트: `OnFireBullet`(총알 발사 시), `OnDied`(HP 0 시)
+
+**Bullet**
+- 플레이어 총알의 이동과 활성 상태 관리 (오브젝트 풀링)
+- 주요 멤버 변수: `X`, `Y`, `Active`, `Speed`
+- 주요 멤버 함수: `Fire()`, `Update()`, `Render()`, `Deactivate()`
+
+**Monster**
+- 적 몬스터의 스폰, 이동, HP, 사망 판정 (오브젝트 풀링)
+- 주요 멤버 변수: `X`, `Y`, `CurrentHP`, `MaxHP`, `Active`
+- 주요 멤버 함수: `Spawn()`, `Update()`, `Render()`, `TakeDamage()`, `Kill()`
+
+### 객체 생성 및 관리 방법
+
+- `Player`는 `GameMain.Initialize()`에서 1개 생성, 게임 재시작 시 `Reset()`으로 재사용
+- `Bullet`, `Monster`는 `Initialize()`에서 미리 여러 개(풀) 생성해두고, 필요할 때 비활성 객체를 꺼내 재사용하는 오브젝트 풀링 방식 사용
+- 텍스처(`G2Texture`)는 종류별로 한 번만 로드해서 같은 종류의 객체끼리 공유
+
+### 게임 상태 관리 위치
+
+- `GameMain` 내부 `GameState` enum(`Start`, `Playing`, `GameOver`)으로 관리
+- `Update()`/`Render()`에서 현재 상태에 따라 분기 처리
+
+
+
+
+
+## 14. 필요한 이미지 리소스 목록
 * 전투기(플레이어) 스프라이트![해당 이미지](player.png)
 * 몬스터(적) 스프라이트![해당 이미지](monster_01.png)
 * 총알 스프라이트![해당 이미지](bullet_player.png)
@@ -103,5 +151,10 @@
  
 
 ## 15. 제작 범위 메모
-* **2주차 제출 기준:** 위 규칙과 객체 목록을 그대로 코드에 반영 가능한 범위로 한정.
-* 아이템/웨이브 다양화/난이도 곡선 등은 이후 주차에서 확장 가능한 여지로 남겨둡니다.
+* **3주차 제출 기준:** 위 규칙과 클래스 구조를 실제 C# 코드에 반영 가능한 범위로 확정합니다.
+
+* GameMain, Player, Bullet, Monster의 기본 클래스와 핵심 기능을 구현합니다.
+
+* 아이템은 사용하지 않습니다.
+
+* 웨이브 다양화, 난이도 곡선 등의 추가 기능은 이후 주차에서 확장할 수 있도록 구성합니다.

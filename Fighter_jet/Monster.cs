@@ -20,7 +20,7 @@ namespace PlaneSurvivor
 
         private readonly G2Texture _texture;
 
-        public Monster(G2Texture sharedTexture)
+        internal Monster(G2Texture sharedTexture)
         {
             _texture = sharedTexture;
         }

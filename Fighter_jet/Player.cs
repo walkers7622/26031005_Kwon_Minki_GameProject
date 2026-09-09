@@ -101,9 +101,10 @@ namespace PlaneSurvivor
             {
                 _fireCooldown = FireInterval;
 
-                // 날개 양쪽에서 정면으로 발사
-                float leftWingX = X + Width * 0.15f;
-                float rightWingX = X + Width * 0.85f;
+                // 날개 양쪽에서 정면으로 발사 (오른쪽으로 살짝 보정)
+                float offsetX = 8f; // 이 값을 키우면 더 오른쪽으로 이동
+                float leftWingX = X + Width * 0.15f + offsetX;
+                float rightWingX = X + Width * 0.85f + offsetX;
 
                 OnFireBullet?.Invoke(leftWingX, Y);
                 OnFireBullet?.Invoke(rightWingX, Y);
