@@ -25,7 +25,7 @@ class GameMain : G2AppBase
     private GameState _currentState = GameState.Start;
 
     private float _playTimer = 0f;
-    private const float MaxPlayTime = 300f; // 5분
+    private const float MaxPlayTime = 180f; // 3분
 
     private int _score = 0;
     private bool _isSurvived = false; // true면 5분 생존 성공, false면 몬스터한테 죽음
